@@ -1,11 +1,11 @@
 public class Matrix {
 
-    static double[][] mat1 = {//3 2
+/*    static double[][] mat1 = {//3 2
             {100,400},
             {100,200},
             {200,200}
     };
-
+*/
    static double[][] mat2 = {//2 2
             {1,0},
             {0,-1}
@@ -24,12 +24,13 @@ public class Matrix {
     };
 
     static double[][] mat8= {//2 2
-            {2,0},
+            {(0.5),0},
             {0,1}
 
     };
 
-    public static void mult(){
+    public static double[][] mult(double[][] mat1){
+
         double[][]mat9 = new double [mat1.length][mat2[0].length];
         for (int i=0; i<mat1.length; i++) {
             for (int j = 0; j < mat2[0].length; j++) {
@@ -40,9 +41,10 @@ public class Matrix {
             }
         }
         GraphicsPanel.Paint(mat9);
+        return mat9;
     }
 
-    public static void Copy(){
+    public static void Copy(double[][]mat1){
         double[][]mat3 = new double [mat1.length][mat2[0].length];
         double[][]mat5 = new double [mat1.length][mat2[0].length];
         double[][]mat7 = new double [mat1.length][mat2[0].length];
@@ -55,6 +57,7 @@ public class Matrix {
                 }
             }
         }
+        GraphicsPanel.Paint(mat1);
         GraphicsPanel.Paint(mat3);
         GraphicsPanel.Paint(mat5);
         GraphicsPanel.Paint(mat7);
