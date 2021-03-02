@@ -2,16 +2,12 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.geom.Path2D;
 
-public class MyFrame extends JFrame {
+public class MyFrame extends JFrame implements Runnable{
 
     GraphicsPanel gp;
 
-    static double[][] mat1 = {//3 2
-            {100,400},
-            {100,200},
-            {200,200}
-    };
 
     MyFrame(){
 
@@ -27,7 +23,8 @@ public class MyFrame extends JFrame {
         panel.setLayout(new GridBagLayout());
         panel.setSize(200,800);
 
-        JButton buttonRS = new JButton("Change");
+        JButton buttonRS = new JButton("Change*2");
+        JButton buttonRC = new JButton("Change/2");
         JButton buttonLT = new JButton("Shift Left");
         JButton buttonRT = new JButton("Shift Right");
         JButton buttonUp = new JButton("Shift Up");
@@ -35,38 +32,30 @@ public class MyFrame extends JFrame {
         GraphicsPanel gp = new GraphicsPanel();
 
         gp.setSize(800,800);
-        gp.Paint(mat1);
 
         buttonRS.addActionListener(e -> {
-            Matrix.Copy(mat1);
-            repaint();
+            gp.Change1();
         });
 
-        buttonLT.addActionListener(e -> {
+        buttonRC.addActionListener(e -> {
+            gp.Change2();
+        });
 
-            for(int i=0;i< mat1.length;i++){
-                mat1[i][0] = mat1[i][0] - 10;
-            }
-            repaint();
+
+        buttonLT.addActionListener(e -> {
+            gp.ShiftLeft();
         });
 
         buttonRT.addActionListener(e -> {
-
-            for(int i=0;i< mat1.length;i++){
-                mat1[i][0] = mat1[i][0] + 10;
-            }
+            gp.ShiftRight();
         });
 
         buttonUp.addActionListener(e -> {
-            for(int i=0;i< mat1.length;i++){
-                mat1[i][1] = mat1[i][1] + 10;
-            }
+            gp.ShiftUp();
         });
 
         buttonDn.addActionListener(e -> {
-            for(int i=0;i< mat1.length;i++){
-                mat1[i][1] = mat1[i][1] - 10;
-            }
+            gp.ShiftDown();
         });
 
         panel.add(buttonRS, new GridBagConstraints(1,2,1,1,1,1,
@@ -84,8 +73,9 @@ public class MyFrame extends JFrame {
         panel.add(buttonDn,new GridBagConstraints(1,4,1,1,1,1,
                 GridBagConstraints.CENTER, GridBagConstraints.BOTH,
                 new Insets(2, 2, 2, 2), 0, 0));
-
-      //  this.getContentPane().add(panel);
+        panel.add(buttonRC, new GridBagConstraints(1,5,1,1,1,1,
+                GridBagConstraints.CENTER, GridBagConstraints.BOTH,
+                new Insets(2, 2, 2, 2), 0, 0));
 
         this.add(gp, new GridBagConstraints(0,0,8,2,1,1,
                 GridBagConstraints.CENTER, GridBagConstraints.BOTH,
@@ -100,5 +90,8 @@ public class MyFrame extends JFrame {
     }
 
 
-
+    @Override
+    public void run() {
+        repaint();
+    }
 }
