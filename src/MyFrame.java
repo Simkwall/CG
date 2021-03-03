@@ -11,28 +11,30 @@ public class MyFrame extends JFrame implements Runnable{
 
     MyFrame(){
 
-
+        // настройка фрейма
         this.setSize(1100,850);
         this.setLocationRelativeTo(null);
         this.setLayout(new GridBagLayout());
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        JPanel panel = new JPanel();
+        JPanel panel = new JPanel();//создание панели для размещения кнопок
 
         panel.setBackground(Color.LIGHT_GRAY);
         panel.setLayout(new GridBagLayout());
         panel.setSize(200,800);
 
-        JButton buttonRS = new JButton("Change*2");
-        JButton buttonRC = new JButton("Change/2");
+        JButton buttonRS = new JButton("Change*1.25");//иницилизация кнопок
+        JButton buttonRC = new JButton("Change*0.8");
         JButton buttonLT = new JButton("Shift Left");
         JButton buttonRT = new JButton("Shift Right");
         JButton buttonUp = new JButton("Shift Up");
         JButton buttonDn = new JButton("Shift Dn");
-        GraphicsPanel gp = new GraphicsPanel();
+
+        GraphicsPanel gp = new GraphicsPanel();//иницилизация панели для отображения рисунка
 
         gp.setSize(800,800);
 
+        //реакции на нажатия кнопок
         buttonRS.addActionListener(e -> {
             gp.Change1();
         });
@@ -58,6 +60,7 @@ public class MyFrame extends JFrame implements Runnable{
             gp.ShiftDown();
         });
 
+        //добавление на панель кнопок
         panel.add(buttonRS, new GridBagConstraints(1,2,1,1,1,1,
                 GridBagConstraints.CENTER, GridBagConstraints.BOTH,
                 new Insets(2, 2, 2, 2), 0, 0));
@@ -77,10 +80,11 @@ public class MyFrame extends JFrame implements Runnable{
                 GridBagConstraints.CENTER, GridBagConstraints.BOTH,
                 new Insets(2, 2, 2, 2), 0, 0));
 
+        //отображение на фрейме панели с рисункои
         this.add(gp, new GridBagConstraints(0,0,8,2,1,1,
                 GridBagConstraints.CENTER, GridBagConstraints.BOTH,
                 new Insets(0, 0, 0, 0), 0, 0));
-
+        //отображение на фрейме панели с кнопками
         this.add(panel, new GridBagConstraints(8,0,1,1,0,0.5,
                 GridBagConstraints.CENTER, GridBagConstraints.BOTH,
                 new Insets(0, 0, 0, 0), 0, 0));

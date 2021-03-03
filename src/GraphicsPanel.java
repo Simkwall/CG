@@ -9,19 +9,20 @@ public class GraphicsPanel extends JPanel implements Runnable {
     private Line x;
     private Line y;
 
-    int[][] mat1 = {//3 2
+    int[][] mat1 = {//исходная матрица треугольника
             {100, 400},
             {100, 200},
             {200, 200}
     };
 
     GraphicsPanel() {
+        // координатные оси
         x = new Line(-400, 0, 400, 0);
         y = new Line(0, -400, 0, 400);
     }
 
     @Override
-    public void paintComponent(Graphics g) {
+    public void paintComponent(Graphics g) { // отрисовка графических объектов
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
@@ -30,6 +31,8 @@ public class GraphicsPanel extends JPanel implements Runnable {
         int[][]mat3 = new int[mat1.length][Matrix.mat2[0].length];
         int[][]mat5 = new int [mat1.length][Matrix.mat2[0].length];
         int[][]mat7 = new int [mat1.length][Matrix.mat2[0].length];
+
+        //умножение матриц для создания отражений исходного треугольника
         for (int i = 0; i < mat1.length; i++) {
             for (int j = 0; j < Matrix.mat2[0].length; j++) {
                 for (int k = 0; k < mat1[0].length; k++) {
@@ -44,6 +47,7 @@ public class GraphicsPanel extends JPanel implements Runnable {
         g2.drawPolygon(arraptationx(mat3), arraptationy(mat3), 3);
         g2.drawPolygon(arraptationx(mat5), arraptationy(mat5), 3);
         g2.drawPolygon(arraptationx(mat7), arraptationy(mat7), 3);
+
         g2.draw(x);
         g2.draw(y);
         repaint();
@@ -51,7 +55,7 @@ public class GraphicsPanel extends JPanel implements Runnable {
     }
 
 
-    public void ShiftLeft() {
+    public void ShiftLeft() {//функции сдвига исходного треугольна
 
         for (int i = 0; i < mat1.length; i++) {
             mat1[i][0] = mat1[i][0] - 10;
@@ -87,8 +91,8 @@ public class GraphicsPanel extends JPanel implements Runnable {
 
     }
 
-    public void Change1() {
-        int[][] mat9 = new int[mat1.length][Matrix.mat2[0].length];
+    public void Change1() {//функция увеличения масштаба исходного треугольника через операцию умножения матриц
+        double[][] mat9 = new double[mat1.length][Matrix.mat2[0].length];
         for (int i = 0; i < mat1.length; i++) {
             for (int j = 0; j < Matrix.mat2[0].length; j++) {
                 for (int k = 0; k < mat1[0].length; k++) {
@@ -98,12 +102,12 @@ public class GraphicsPanel extends JPanel implements Runnable {
         }
         for (int i = 0; i < mat1.length; i++) {
             for (int j = 0; j < Matrix.mat2[0].length; j++) {
-                mat1[i][j] = mat9[i][j];
+                mat1[i][j] = (int)mat9[i][j];
             }
         }
     }
 
-    public void Change2() {
+    public void Change2() {//функция уменьшения масштаба
         double[][] mat9 = new double[mat1.length][Matrix.mat2[0].length];
         for (int i = 0; i < mat1.length; i++) {
             for (int j = 0; j < Matrix.mat2[0].length; j++) {
@@ -119,7 +123,7 @@ public class GraphicsPanel extends JPanel implements Runnable {
         }
     }
 
-    public int[] arraptationx(int[][] mat) {
+    public int[] arraptationx(int[][] mat) {//преобразование мировых координат к программным. Для упрощения восприятия человеком
         int[] arr1 = new int[3];
 
         for (int i = 0; i < 3; i++) {
